@@ -1,0 +1,86 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StarStringsUpdater.ViewModels"
+        xmlns:conv="using:StarStringsUpdater.Converters"
+        x:Class="StarStringsUpdater.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="StarStrings Updater"
+        Icon="avares://StarStringsUpdater/Assets/app.ico"
+        Width="820" Height="600"
+        MinWidth="660" MinHeight="440"
+        WindowStartupLocation="CenterScreen">
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="20">
+
+    <StackPanel Grid.Row="0" Spacing="2" Margin="0,0,0,16">
+      <TextBlock Text="STARSTRINGS UPDATER" Classes="title" />
+      <TextBlock Classes="subtitle">
+        <Run Text="Latest LIVE release: " />
+        <Run Text="{Binding LiveReleaseLabel}" />
+      </TextBlock>
+      <TextBlock Classes="subtitle">
+        <Run Text="Latest PTU release: " />
+        <Run Text="{Binding PtuReleaseLabel}" />
+      </TextBlock>
+    </StackPanel>
+
+    <Border Grid.Row="1" Classes="panel" Padding="14" Margin="0,0,0,16">
+      <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+        <TextBlock Grid.Column="0" Text="StarCitizen folder:" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <TextBox Grid.Column="1" Text="{Binding RootPath, Mode=OneWay}" IsReadOnly="True" VerticalAlignment="Center"
+                  Watermark="No folder selected" />
+        <Button Grid.Column="2" Content="Browse…" Margin="10,0,0,0" Click="OnBrowseClick" />
+        <Button Grid.Column="3" Classes="accent" Content="Check for updates" Margin="10,0,0,0"
+                Command="{Binding CheckForUpdatesCommand}" IsEnabled="{Binding !IsCheckingForUpdates}" />
+      </Grid>
+    </Border>
+
+    <ScrollViewer Grid.Row="2">
+      <StackPanel>
+        <TextBlock Text="No StarCitizen channel detected. Select the root folder above."
+                   Classes="subtitle" IsVisible="{Binding !HasChannels}" Margin="0,20,0,0" />
+
+        <ItemsControl ItemsSource="{Binding Channels}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:ChannelViewModel">
+              <Border Classes="channel-row">
+                <Grid ColumnDefinitions="90,*,Auto,Auto,Auto,Auto">
+                  <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center" />
+
+                  <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Spacing="2">
+                    <TextBlock Text="{Binding Path}" Classes="subtitle" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding InstalledVersionLabel, TargetNullValue='Not installed'}" Classes="subtitle" />
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="#B84842" FontSize="11"
+                               IsVisible="{Binding HasError}" />
+                  </StackPanel>
+
+                  <Border Grid.Column="2" Classes="status-badge"
+                          Background="{Binding Status, Converter={x:Static conv:StatusToBrushConverter.Instance}}"
+                          VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Status, Converter={x:Static conv:StatusToTextConverter.Instance}}"
+                               Foreground="#04121A" FontSize="11" FontWeight="SemiBold" />
+                  </Border>
+
+                  <ProgressBar Grid.Column="3" IsIndeterminate="True" Width="50" Margin="0,0,10,0"
+                               IsVisible="{Binding IsBusy}" />
+
+                  <Button Grid.Column="4" Classes="danger" Content="Uninstall" Margin="0,0,8,0"
+                          Command="{Binding UninstallCommand}" VerticalAlignment="Center" />
+
+                  <Button Grid.Column="5" Classes="accent" Content="Update"
+                          Command="{Binding UpdateCommand}" VerticalAlignment="Center" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </ScrollViewer>
+
+    <Grid Grid.Row="3" ColumnDefinitions="*,Auto" Margin="0,16,0,0">
+      <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" Classes="subtitle" VerticalAlignment="Center" />
+      <Button Grid.Column="1" Classes="accent" Content="Update all"
+              Command="{Binding UpdateAllCommand}" IsEnabled="{Binding HasChannels}" />
+    </Grid>
+  </Grid>
+</Window>

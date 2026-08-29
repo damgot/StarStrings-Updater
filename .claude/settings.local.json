@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet --version)",
+      "Bash(dotnet new *)",
+      "Bash(curl -s https://api.nuget.org/v3-flatcontainer/avalonia/index.json)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['versions'][-10:]\\)\")",
+      "Bash(curl -s https://api.nuget.org/v3-flatcontainer/communitytoolkit.mvvm/index.json)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['versions'][-5:]\\)\")",
+      "WebFetch(domain:github.com)",
+      "Bash(dotnet sln *)",
+      "Bash(dotnet build *)",
+      "Bash(dotnet nuget *)",
+      "Bash(mkdir -p /c/Proj/scratch-sctest/StarCitizen/LIVE/Data /c/Proj/scratch-sctest/StarCitizen/PTU/Data /c/Proj/scratch-sctest/StarCitizen/NotAChannel)",
+      "Bash(echo \"g_language = french\")",
+      "Bash(echo \"some_other_setting = 1\")",
+      "Read(//c/Proj/**)",
+      "Bash(dotnet run *)",
+      "PowerShell(Start-Process -FilePath \"c:\\\\Proj\\\\StartStringsUpdater\\\\src\\\\StarStringsUpdater\\\\bin\\\\Debug\\\\net8.0\\\\StarStringsUpdater.exe\")",
+      "PowerShell(Get-Process StarStringsUpdater)",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Name StarStringsUpdater -Force -ErrorAction SilentlyContinue\")",
+      "Bash(rm -rf /c/Proj/scratch-sctest)",
+      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Inno Setup 6//**)",
+      "Read(//c/Program Files/**)"
+    ]
+  }
+}

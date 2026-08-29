@@ -1,0 +1,115 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Styles.Resources>
+    <ResourceDictionary>
+      <SolidColorBrush x:Key="SpacePanelBrush" Color="#12182B" />
+      <SolidColorBrush x:Key="SpaceBorderBrush" Color="#232B45" />
+      <SolidColorBrush x:Key="SpaceTextBrush" Color="#E7ECF5" />
+      <SolidColorBrush x:Key="SpaceMutedTextBrush" Color="#8A93A8" />
+      <SolidColorBrush x:Key="AccentBrush" Color="#2FB6D9" />
+      <SolidColorBrush x:Key="AccentBrushHover" Color="#54C8E6" />
+      <SolidColorBrush x:Key="AccentForegroundBrush" Color="#04121A" />
+      <SolidColorBrush x:Key="DangerBorderBrush" Color="#7A3B39" />
+      <SolidColorBrush x:Key="DangerBorderBrushHover" Color="#B84842" />
+      <SolidColorBrush x:Key="DangerTextBrush" Color="#E39A97" />
+
+      <SolidColorBrush x:Key="StatusUpToDateBrush" Color="#3E8E68" />
+      <SolidColorBrush x:Key="StatusUpdateBrush" Color="#C98A3E" />
+      <SolidColorBrush x:Key="StatusNotInstalledBrush" Color="#5B6478" />
+      <SolidColorBrush x:Key="StatusUpdatingBrush" Color="#2FB6D9" />
+      <SolidColorBrush x:Key="StatusErrorBrush" Color="#B84842" />
+
+      <LinearGradientBrush x:Key="SpaceBackdropBrush" StartPoint="0%,0%" EndPoint="100%,100%">
+        <GradientStop Color="#05070D" Offset="0" />
+        <GradientStop Color="#10182C" Offset="0.55" />
+        <GradientStop Color="#080B14" Offset="1" />
+      </LinearGradientBrush>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <Style Selector="Window">
+    <Setter Property="Background" Value="{StaticResource SpaceBackdropBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource SpaceTextBrush}" />
+    <Setter Property="TransparencyLevelHint" Value="None" />
+  </Style>
+
+  <Style Selector="TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource SpaceTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.title">
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="LetterSpacing" Value="2" />
+    <Setter Property="Foreground" Value="{StaticResource SpaceTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.subtitle">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Foreground" Value="{StaticResource SpaceMutedTextBrush}" />
+  </Style>
+
+  <Style Selector="Border.panel">
+    <Setter Property="Background" Value="{StaticResource SpacePanelBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource SpaceBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="6" />
+  </Style>
+
+  <Style Selector="Border.channel-row">
+    <Setter Property="Background" Value="{StaticResource SpacePanelBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource SpaceBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="14,10" />
+    <Setter Property="Margin" Value="0,0,0,8" />
+  </Style>
+
+  <Style Selector="Border.status-badge">
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="10,3" />
+  </Style>
+
+  <Style Selector="TextBox">
+    <Setter Property="Background" Value="{StaticResource SpacePanelBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource SpaceBorderBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource SpaceTextBrush}" />
+    <Setter Property="CornerRadius" Value="4" />
+  </Style>
+
+  <Style Selector="Button.accent">
+    <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource AccentForegroundBrush}" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="14,7" />
+  </Style>
+
+  <Style Selector="Button.accent:pointerover">
+    <Setter Property="Background" Value="{StaticResource AccentBrushHover}" />
+  </Style>
+
+  <Style Selector="Button.accent:disabled">
+    <Setter Property="Opacity" Value="0.45" />
+  </Style>
+
+  <Style Selector="Button.danger">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{StaticResource DangerBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{StaticResource DangerTextBrush}" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="Padding" Value="14,7" />
+  </Style>
+
+  <Style Selector="Button.danger:pointerover">
+    <Setter Property="BorderBrush" Value="{StaticResource DangerBorderBrushHover}" />
+    <Setter Property="Foreground" Value="{StaticResource DangerBorderBrushHover}" />
+  </Style>
+
+  <Style Selector="Button.danger:disabled">
+    <Setter Property="Opacity" Value="0.35" />
+  </Style>
+
+</Styles>
