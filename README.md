@@ -1,8 +1,7 @@
 # StarStrings Updater
 
 A small Windows app that installs and keeps [StarStrings](https://github.com/MrKraken/StarStrings)
-— the community-made English localization for Star Citizen — up to date, for all your game
-installs at once.
+up to date, for all your entire Star Citizen game environment all at once.
 
 No more manually downloading a zip, extracting it, and copying files into your game folder every
 patch: point the app at your Star Citizen folder once, and it tells you when an update is
@@ -53,8 +52,3 @@ Use Windows' usual "Apps & Features" (or the Start Menu shortcut) to uninstall S
 Updater — this removes the app and its settings. It does **not** remove StarStrings from your
 Star Citizen folders; use the in-app **Uninstall** button per channel for that first if you want
 StarStrings gone too.
-
----
-
-Looking for build instructions or technical/architecture details instead? See
-[TECHNICAL-README.md](TECHNICAL-README.md).
