@@ -23,7 +23,7 @@ LIVE and HOTFIX always follow StarStrings' LIVE release; PTU always follows its 
 
 ## Installing the app
 
-1. Download `StarStringsUpdater-Setup-<version>.exe` and run it.
+1. Download `StarStringsUpdater-Setup-<version>.exe` from the [latest release](https://github.com/damgot/StarStrings-Updater/releases) and run it.
 2. No administrator rights are needed — it installs just for your user account, under
    `%LocalAppData%\Programs\StarStringsUpdater`.
 
