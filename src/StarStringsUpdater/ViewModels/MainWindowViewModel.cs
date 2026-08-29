@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using StarStringsUpdater.Models;
@@ -48,6 +49,21 @@ public sealed partial class MainWindowViewModel : ObservableObject
     private bool _isCheckingForUpdates;
 
     public bool HasChannels => Channels.Count > 0;
+
+    /// <summary>
+    /// Shown in the OS title bar/taskbar tooltip, e.g. "StarStrings Updater v1.0". The version
+    /// is derived from the assembly version (itself driven by &lt;Version&gt; in
+    /// StarStringsUpdater.csproj) so there's a single place to bump it.
+    /// </summary>
+    public string WindowTitle
+    {
+        get
+        {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var versionLabel = version is null ? "" : $" v{version.Major}.{version.Minor}";
+            return $"StarStrings Updater{versionLabel}";
+        }
+    }
 
     public async Task SetRootPathAsync(string path)
     {

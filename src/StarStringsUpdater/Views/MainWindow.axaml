@@ -4,7 +4,7 @@
         xmlns:conv="using:StarStringsUpdater.Converters"
         x:Class="StarStringsUpdater.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="StarStrings Updater"
+        Title="{Binding WindowTitle}"
         Icon="avares://StarStringsUpdater/Assets/app.ico"
         Width="820" Height="600"
         MinWidth="660" MinHeight="440"

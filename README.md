@@ -1,61 +1,60 @@
 # StarStrings Updater
 
-Application desktop Windows (Avalonia UI / .NET 8) qui automatise l'installation et la mise à
-jour de la traduction communautaire [StarStrings](https://github.com/MrKraken/StarStrings)
-pour Star Citizen. Seuls trois canaux du jeu sont gérés, en parallèle : **LIVE**, **HOTFIX** et
-**PTU** — aucun autre (TECH-PREVIEW, EPTU, etc. sont ignorés).
+A small Windows app that installs and keeps [StarStrings](https://github.com/MrKraken/StarStrings)
+— the community-made English localization for Star Citizen — up to date, for all your game
+installs at once.
 
-## Fonctionnement
+No more manually downloading a zip, extracting it, and copying files into your game folder every
+patch: point the app at your Star Citizen folder once, and it tells you when an update is
+available and installs it in one click.
 
-1. Sélectionnez le dossier racine `StarCitizen` (celui qui contient les sous-dossiers `LIVE`,
-   `HOTFIX`, `PTU`, etc.). L'application détecte automatiquement les canaux supportés parmi
-   ces trois-là (en vérifiant la présence d'un dossier `Data`) ; tout autre sous-dossier est
-   ignoré.
-2. Le dépôt StarStrings publie deux releases indépendantes : une release **LIVE** et une
-   release **PTU**. Les canaux **LIVE et HOTFIX utilisent toujours la release LIVE**, et le
-   canal **PTU utilise toujours la release PTU** — même si l'une est plus récente que l'autre,
-   elles ne sont jamais interverties.
-3. Au démarrage (et via le bouton "Check for updates"), l'app interroge les deux releases
-   GitHub et indique, pour chaque canal, s'il est à jour, si une mise à jour est disponible, ou
-   s'il n'a pas encore été installé.
-4. Le bouton "Update" (par canal, ou "Update all") télécharge le zip de la release
-   correspondante, copie le dossier `Data` dans le canal choisi, et fusionne le fichier
-   `USER.cfg` :
-   - absent → il est copié tel quel ;
-   - présent avec une ligne `g_language` → cette ligne est remplacée ;
-   - présent sans ligne `g_language` → le contenu du `USER.cfg` du zip est ajouté en fin de fichier.
-5. Le bouton "Uninstall" (par canal) retire uniquement les fichiers installés dans `Data` et la
-   ligne `g_language` du `USER.cfg`, sans supprimer ce dernier ni toucher au reste du dossier.
-6. L'état (version installée par canal) est conservé dans `state.json`, à côté de l'exécutable,
-   afin de ne proposer une mise à jour que si elle est réellement nécessaire.
+## What it manages
 
-> Note technique : chacune des deux releases GitHub utilise un tag "roulant" (`latest` pour
-> LIVE, `latest-ptu` pour PTU) réutilisé à chaque publication ; la détection de nouvelle version
-> se base donc sur l'identifiant unique de la release (et non sur le tag).
+The app tracks exactly three Star Citizen channels, in parallel:
 
-## Build & exécution (développement)
+- **LIVE**
+- **HOTFIX**
+- **PTU**
 
-Prérequis : [SDK .NET 8](https://dotnet.microsoft.com/download/dotnet/8.0).
+Other channels (TECH-PREVIEW, EPTU, ...) are intentionally not supported and are ignored even if
+present in your Star Citizen folder.
 
-```powershell
-dotnet build
-dotnet run --project src/StarStringsUpdater
-```
+LIVE and HOTFIX always follow StarStrings' LIVE release; PTU always follows its own PTU release
+— they're tracked and updated independently.
 
-## Générer l'installeur Windows
+## Installing the app
 
-Prérequis supplémentaire : [Inno Setup 6](https://jrsoftware.org/isinfo.php) installé sur la
-machine de build.
+1. Download `StarStringsUpdater-Setup-<version>.exe` and run it.
+2. No administrator rights are needed — it installs just for your user account, under
+   `%LocalAppData%\Programs\StarStringsUpdater`.
 
-```powershell
-./installer/build-installer.ps1
-```
+## Using the app
 
-Le script publie l'application en mode autonome et fichier unique (`self-contained`,
-`win-x64`, `PublishSingleFile`) — l'installation ne dépose donc que `StarStringsUpdater.exe`
-(pas besoin d'installer le runtime .NET séparément) — puis compile
-`installer/StarStringsUpdater.iss` avec Inno Setup. L'installeur généré se trouve dans
-`installer/Output/StarStringsUpdater-Setup.exe`.
+1. **Launch it.** On startup, it checks GitHub for the latest LIVE and PTU releases of
+   StarStrings and shows both at the top of the window.
+2. **Select your Star Citizen folder.** Click **Browse…** and pick your main Star Citizen
+   folder — the one that contains the `LIVE`, `HOTFIX`, `PTU`, etc. subfolders (something like
+   `...\Roberts Space Industries\StarCitizen`), **not** one of those subfolders itself.
+3. **Check the status of each channel.** Every detected channel (LIVE/HOTFIX/PTU) shows a badge:
+   - **Not installed** — StarStrings has never been applied to this channel.
+   - **Update available** — a newer StarStrings build exists for this channel.
+   - **Up to date** — nothing to do.
+4. **Update.** Click **Update** on a channel to install or refresh StarStrings there, or
+   **Update all** to update every channel that needs it at once.
+5. **Uninstall.** Click **Uninstall** on a channel to remove StarStrings from it — this deletes
+   only the files StarStrings added and undoes its change to `USER.cfg`; your other game files
+   and settings are left untouched.
+6. **Check for updates** re-queries GitHub at any time — the app also does this automatically
+   every time it starts.
 
-L'installation se fait par utilisateur, sans droits administrateur, dans
-`%LocalAppData%\Programs\StarStringsUpdater`.
+## Uninstalling the app itself
+
+Use Windows' usual "Apps & Features" (or the Start Menu shortcut) to uninstall StarStrings
+Updater — this removes the app and its settings. It does **not** remove StarStrings from your
+Star Citizen folders; use the in-app **Uninstall** button per channel for that first if you want
+StarStrings gone too.
+
+---
+
+Looking for build instructions or technical/architecture details instead? See
+[TECHNICAL-README.md](TECHNICAL-README.md).

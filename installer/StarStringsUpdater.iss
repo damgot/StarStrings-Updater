@@ -3,7 +3,7 @@
 ; Prérequis sur la machine de build : Inno Setup 6 (https://jrsoftware.org/isinfo.php).
 
 #define MyAppName "StarStrings Updater"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "StarStrings Updater"
 #define MyAppExeName "StarStringsUpdater.exe"
 #define MyPublishDir "..\src\StarStringsUpdater\bin\Release\net8.0\win-x64\publish"
@@ -21,7 +21,7 @@ DisableProgramGroupPage=yes
 ; Installation par utilisateur, sans besoin de droits administrateur (pas d'invite UAC).
 PrivilegesRequired=lowest
 OutputDir=Output
-OutputBaseFilename=StarStringsUpdater-Setup
+OutputBaseFilename=StarStringsUpdater-Setup-{#MyAppVersion}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern

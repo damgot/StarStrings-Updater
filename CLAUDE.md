@@ -7,7 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A Windows desktop app (Avalonia UI, .NET 8) that automates installing/updating the
 [StarStrings](https://github.com/MrKraken/StarStrings) community translation for Star Citizen.
 It supports exactly three StarCitizen channels — LIVE, HOTFIX, and PTU — nothing else (no
-TECH-PREVIEW, no EPTU). See `README.md` for the full user-facing behavior description.
+TECH-PREVIEW, no EPTU). `README.md` is the end-user guide (install/use the app);
+`TECHNICAL-README.md` covers build/run/installer instructions and the update/uninstall behavior
+in more technical terms.
 
 ## Commands
 
@@ -137,6 +139,16 @@ wouldn't otherwise know about it — and its mere presence would block Inno's de
 ends up empty and Inno's default behavior removes the whole install directory. Verified via a
 real silent install → seed `state.json` → silent uninstall round trip: both the file and the
 directory are gone afterward.
+
+**Version number**: kept intentionally short ("1.0", not "1.0.0") and defined in exactly two
+places that must be bumped together — `<Version>` in `StarStringsUpdater.csproj` and
+`#define MyAppVersion` in `installer/StarStringsUpdater.iss` (no automated sync between them,
+deliberately, for a number that changes rarely). The in-app badge next to the title
+(`MainWindowViewModel.AppVersionLabel`) doesn't hardcode the string — it reads the assembly
+version at runtime and formats it as `Major.Minor`, so it always matches the csproj's
+`<Version>` without needing to duplicate the literal there too. The installer filename also
+includes it: `OutputBaseFilename=StarStringsUpdater-Setup-{#MyAppVersion}` →
+`StarStringsUpdater-Setup-1.0.exe`.
 
 The script always deletes the publish output directory before publishing. Reason: the app
 writes its own `state.json` next to the exe at runtime, so if that folder is reused across runs
