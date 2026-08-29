@@ -37,8 +37,9 @@
 
     <ScrollViewer Grid.Row="2">
       <StackPanel>
-        <TextBlock Text="No StarCitizen channel detected. Select the root folder above."
-                   Classes="subtitle" IsVisible="{Binding !HasChannels}" Margin="0,20,0,0" />
+        <TextBlock Classes="subtitle" IsVisible="{Binding !HasChannels}" Margin="0,20,0,0"
+                   MaxWidth="560" TextWrapping="Wrap" HorizontalAlignment="Left"
+                   Text="No StarCitizen channel detected. Select the main StarCitizen folder above — the one that contains the LIVE, HOTFIX, PTU, etc. subfolders — not one of those subfolders itself." />
 
         <ItemsControl ItemsSource="{Binding Channels}">
           <ItemsControl.ItemTemplate>
