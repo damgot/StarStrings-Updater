@@ -27,6 +27,23 @@ LIVE and HOTFIX always follow StarStrings' LIVE release; PTU always follows its 
 2. No administrator rights are needed — it installs just for your user account, under
    `%LocalAppData%\Programs\StarStringsUpdater`.
 
+### About the "Windows protected your PC" / SmartScreen warning
+
+The installer isn't code-signed, so Windows may warn that it's from an "unrecognized app" when
+you run it. This is expected for small, independently-published tools like this one — it's not a
+virus detection, just Windows not yet having reputation data for this specific file. To proceed,
+click **More info**, then **Run anyway**.
+
+Each release also ships a `.sha256` file next to the installer, containing its SHA-256 checksum,
+so you can confirm the file you downloaded matches exactly what was built and published — open
+PowerShell next to the downloaded files and run:
+
+```powershell
+Get-FileHash .\StarStringsUpdater-Setup-<version>.exe -Algorithm SHA256
+```
+
+and compare the result against the contents of the matching `.sha256` file.
+
 ## Using the app
 
 1. **Launch it.** On startup, it checks GitHub for the latest LIVE and PTU releases of

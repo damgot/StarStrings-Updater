@@ -57,7 +57,10 @@ build machine.
 The script publishes the app as self-contained and single-file (`self-contained`, `win-x64`,
 `PublishSingleFile`) — so the install only drops `StarStringsUpdater.exe` (no separate .NET
 runtime install needed) — then compiles `installer/StarStringsUpdater.iss` with Inno Setup. The
-generated installer is at `installer/Output/StarStringsUpdater-Setup-<version>.exe`.
+generated installer is at `installer/Output/StarStringsUpdater-Setup-<version>.exe`, alongside a
+`.sha256` file with its checksum (see [README.md](README.md) for why — the installer isn't
+code-signed, so this lets users verify integrity and gives context for the SmartScreen warning
+they'll otherwise see).
 
 Install is per-user, no administrator rights required, into
 `%LocalAppData%\Programs\StarStringsUpdater`.

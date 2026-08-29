@@ -53,3 +53,14 @@ if ($LASTEXITCODE -ne 0) {
 
 $outputDir = Join-Path $PSScriptRoot "Output"
 Write-Host "==> Installeur généré dans : $outputDir" -ForegroundColor Green
+
+$setupExe = Get-ChildItem $outputDir -Filter "*.exe" | Select-Object -First 1
+if ($setupExe) {
+    Write-Host "==> Calcul du hash SHA-256..." -ForegroundColor Cyan
+    $hash = Get-FileHash -Path $setupExe.FullName -Algorithm SHA256
+    $hashLine = "$($hash.Hash.ToLowerInvariant())  $($setupExe.Name)"
+    $hashFile = "$($setupExe.FullName).sha256"
+    Set-Content -Path $hashFile -Value $hashLine -Encoding ascii -NoNewline
+    Write-Host "    $hashLine"
+    Write-Host "    Écrit dans : $hashFile" -ForegroundColor Green
+}
